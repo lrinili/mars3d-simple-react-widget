@@ -203,6 +203,13 @@ function initWidgetView(_thisWidget) {
             onMeasureChange(valstr);
         }
     });
+
+    $("#chk_onlyPickModelPosition").change(function () {
+        var val = $(this).is(':checked');
+
+        thisWidget.changeOnlyPickModel(val);
+    });
+
 }
 
 var lastVal = 0;

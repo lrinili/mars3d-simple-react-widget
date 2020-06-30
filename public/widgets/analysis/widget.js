@@ -141,6 +141,7 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
             horizontalAngle: options.horizontalAngle,
             verticalAngle: options.verticalAngle,
             distance: options.distance,
+            offsetHeight: 1.5, //增加人的升高
             calback: function (distance) {
                 if (that.viewWindow)
                     that.viewWindow.updateKsyDistance(distance);
@@ -259,10 +260,10 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
     createDBTM: function () {
         this.openTerrainDepthTest();
 
-        this.underObj = new mars3d.analysi.Underground(viewer, { 
+        this.underObj = new mars3d.analysi.Underground(viewer, {
             alpha: 0.5,
             enable: false,
-        }); 
+        });
     },
     destroyDBTM: function () {
         if (!this.underObj) return;
@@ -270,12 +271,12 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
         this.resetTerrainDepthTest();
 
         this.underObj.destroy();
-        delete this.underObj; 
+        delete this.underObj;
     },
     clearDBTM: function () {
 
 
-    }, 
+    },
 
     //=========坡度坡向========
     createPDPX: function () {
@@ -462,7 +463,7 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
             return false;
         }
 
-    
+
         this.tilesetClip = new mars3d.tiles.TilesClipPlan({
             // viewer: this.viewer,
             tileset: tileset,
