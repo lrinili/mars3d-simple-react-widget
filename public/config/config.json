@@ -539,6 +539,53 @@
             { 
                 "pid": 3030,
                 "type": "geojson",
+                "name": "西藏垭口",
+                "url": "http://data.marsgis.cn/file/geojson/xizangyakou.json",
+                "symbol": {
+                    "styleOptions": {
+                        "image": "img/marker/mark1.png",
+                        "scale": 1,
+                        "scaleByDistance": true,
+                        "scaleByDistance_far": 5000000,
+                        "scaleByDistance_farValue": 0.5,
+                        "scaleByDistance_near": 1000,
+                        "scaleByDistance_nearValue": 1,
+                        "label": {
+                            "text": "{NAME}",
+                            "font_size": 25,
+                            "color": "#ffff00",
+                            "font_family": "微软雅黑",
+                            "border": true,
+                            "border_color": "#000000",
+                            "pixelOffset": [0, -40  ],
+                            "scaleByDistance": true,
+                            "scaleByDistance_far": 1000000,
+                            "scaleByDistance_farValue": 0.5,
+                            "scaleByDistance_near": 1000,
+                            "scaleByDistance_nearValue": 1,
+                            "distanceDisplayCondition": true,
+                            "distanceDisplayCondition_far": 1000000,
+                            "distanceDisplayCondition_near": 0
+                        }
+                    }
+                },
+                "popup": [
+                    {
+                        "field": "NAME",
+                        "name": "名称"
+                    },
+                    {
+                        "type": "details",
+                        "calback": "showdetails",
+                        "field": "图片"
+                    }
+                ],
+                "visible": false,
+                "flyTo": true
+            }, 
+            { 
+                "pid": 3030,
+                "type": "geojson",
                 "name": "体育设施点",
                 "url": "http://data.marsgis.cn/file/geojson/hfty-point.json",
                 "symbol": {
@@ -840,7 +887,7 @@
                 "name": "风力发电机",
                 "url": "http://data.marsgis.cn/gltf/mars/fengche.gltf",
                 "position": { "x":  117.219071,"y": 31.828783, "z": 39.87},
-                "style":{   "scale": 50,  "heading": -93  },
+                "style":{ "scale": 50,  "heading": -93  },
                 "popup": "示例信息，这是一个风力发电机",
                 "center":{"y":31.821083,"x":117.21832,"z":832.64,"heading":2.3,"pitch":-39.2,"roll":0}
             },
@@ -950,7 +997,8 @@
                 "scenetree": "scenetree.json",   
                 "showClickFeature":true, 
                 "popup":"all",          
-                "offset":{"x":117.21964,"y":31.833288,"z":53,"heading":1.9},
+                "offset":{"x":117.21964,"y":31.833288,"z":53},
+                "rotation": { "z": 1.9},
                 "center":{"y":31.832145,"x":117.219726,"z":197.57,"heading":358.9,"pitch":-46.3,"roll":360}
             },
             {
@@ -963,7 +1011,8 @@
                 "scenetree": "scenetree.json",   
                 "showClickFeature":true, 
                 "popup":"all",          
-                "offset":{"x":117.21964,"y":31.833288,"z":53,"heading":1.9},
+                "offset":{"x":117.21964,"y":31.833288,"z":53},
+                "rotation": { "z": 1.9},
                 "center":{"y":31.832145,"x":117.219726,"z":197.57,"heading":358.9,"pitch":-46.3,"roll":360}
             },
      
@@ -982,7 +1031,8 @@
                 "url": "$serverURL$/3dtiles/max-piping-hf/tileset.json",
                 "maximumScreenSpaceError": 2,
                 "maximumMemoryUsage": 1024,
-                "offset": { "x": 117.215457, "y": 31.843363, "z": 5, "transform": true, "heading": 23.3 },
+                "offset": { "x": 117.215457, "y": 31.843363, "z": 5, "transform": true},
+                "rotation": { "z":  23.3 },
                 "center":{"y":31.840525,"x":117.217024,"z":495.12,"heading":360,"pitch":-59.3,"roll":360},
                 "showClickFeature": true,
                 "popup": "all",
@@ -1121,7 +1171,6 @@
                 "url": "$serverURL$/3dtiles/qx-changfang/tileset.json",
 		        "maximumScreenSpaceError": 1,
                 "maximumMemoryUsage": 8192,
-                "preferLeaves":true,
                 "dynamicScreenSpaceError": true,
                 "cullWithChildrenBounds": false,
                 "luminanceAtZenith": 0.6, 

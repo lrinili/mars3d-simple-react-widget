@@ -271,6 +271,10 @@ function initDXKW() {
     $('#bt_dxkw_draw').click(function () {
         thisWidget.startDrawDXKW();
     });
+    $('#bt_dxkw_draw_extent').click(function () {
+        thisWidget.startDrawDXKWExtent();
+    });
+    
 
     $("#txt_dxkw_clipHeight").change(function () {
         var nowValue = $(this).val();

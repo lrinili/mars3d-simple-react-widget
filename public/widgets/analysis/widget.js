@@ -197,12 +197,32 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
                 clampToGround: true
             },
             success: function (entity) { //绘制成功后回调
-
                 that.enableControl(true);
 
                 var positions = viewer.mars.draw.getPositions(entity);
                 viewer.mars.draw.deleteAll();
-                that.showDXKWClippingPlanes(positions);
+                that.showDXKWClippingPlanes(positions,true);
+            }
+        });
+    },
+    startDrawDXKWExtent: function () {
+        var that = this;
+
+        this.enableControl(false);
+
+        viewer.mars.draw.startDraw({
+            type: 'rectangle',
+            style: {
+                color: '#007be6',
+                opacity: 0.8,
+                outline: false,
+            },
+            success: function (entity) { //绘制成功后回调
+                that.enableControl(true);
+
+                var positions = mars3d.draw.attr.rectangle.getOutlinePositions(entity, true);
+                viewer.mars.draw.deleteAll();
+                that.showDXKWClippingPlanes(positions,false);
             }
         });
     },
@@ -215,15 +235,15 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
             this.TerrainClip.destroy();
             delete this.TerrainClip;
         }
-        if (this.TerrainClip2) {
-            this.TerrainClip2.destroy();
-            delete this.TerrainClip2;
+        if (this.TerrainClipPlan) {
+            this.TerrainClipPlan.destroy();
+            delete this.TerrainClipPlan;
         }
 
-        // //同时有模型时，清除模型裁剪
-        // this.clearMXCJ();
+        //同时有模型时，清除模型裁剪
+        this.clearMXCJ();
     },
-    showDXKWClippingPlanes: function (positions) {
+    showDXKWClippingPlanes: function (positions, has2) {
         this.clearDXKW();
 
         //同时有模型时，进行模型裁剪
@@ -231,8 +251,9 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
 
         var height = this.viewWindow.getDXKWNowHeight();
 
-        // marsgis扩展的地形开挖【存在问题：鼠标无法穿透地表，地下管网的popup无法展示】
-        this.TerrainClip = new mars3d.analysi.TerrainClip(viewer, {
+
+        //cesium原生的clip组成的【因为转cesium原生接口的plan组成，存在问题：不稳定，时而不生效】
+        this.TerrainClipPlan = new mars3d.analysi.TerrainClipPlan(viewer, {
             positions: positions,
             height: height,
             wall: true,
@@ -241,19 +262,19 @@ mars3d.widget.bindClass(mars3d.widget.BaseWidget.extend({
             bottomImg: this.path + 'img/textures/excavationregion_side.jpg'
         });
 
-
-        //cesium原生的clip组成的【存在问题：不稳定，时而不生效，转cesium原生接口的plan组成】
-        this.TerrainClip2 = new mars3d.analysi.TerrainClipPlan(viewer, {
-            positions: positions,
-            height: height,
-            wall: false,
-        });
-
+        // marsgis扩展的地形开挖【存在问题：鼠标无法穿透地表，地下管网的popup无法展示】
+        if (has2) { 
+            this.TerrainClip = new mars3d.analysi.TerrainClip(viewer, {
+                positions: positions,
+                height: height,
+                wall: false
+            });
+        }
 
     },
     updateDXKWHeight: function (nowValue) {
-        if (this.TerrainClip)
-            this.TerrainClip.height = nowValue;
+        if (this.TerrainClipPlan)
+            this.TerrainClipPlan.height = nowValue;
     },
 
     //=========地表透明========
